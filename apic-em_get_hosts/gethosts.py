@@ -16,14 +16,14 @@ import requests
 requests.packages.urllib3.disable_warnings()
 
 # Variables
-apic_em_ip = "https://sandboxapic.cisco.com/api/v1"
-apic_em_user = "devnetuser"
-apic_em_password = "Cisco123!"
+apic_em_ip = "https://sandboxapicdc.cisco.com/api/v1"
+apic_em_user = "admin"
+apic_em_password = "!v3G@!4@Y"
 
 def get_token(url):
 
     # Define API Call
-    api_call = "/ticket"
+    api_call = "/auth/token"
 
     # Payload contains authentication information
     payload = {"username": apic_em_user, "password": apic_em_password}
@@ -34,7 +34,7 @@ def get_token(url):
     # Combine URL, API call and parameters variables
     url += api_call
 
-    response = requests.post(url, json=payload, headers=headers, verify=False).json()
+    response = requests.post(url, json=payload, headers=headers, verify=False, auth=(apic_em_user, apic_em_password)).json()
 
     # Return authentication token from respond body
     return response["response"]["serviceTicket"]
